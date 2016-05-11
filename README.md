@@ -1,23 +1,71 @@
-# slurm-wlm Cookbook
+Slurm-wlm Cookbook
+==================
 
-## Description
+Installs and configures SchedMD Slurm Workload Manager
 
-This cookbook manages the Slurm Workload Manager packages and configuration
+Requirements
+------------
 
-## Platform
+### Platform:
 
-This cookbook is tested on the following platforms:
+*No platforms defined*
 
- - Ubuntu "Trusty" 14.04 LTS
- - CentOS 7.1
+### Cookbooks:
 
-## Cookbooks
+*No dependencies defined*
 
-This cookbook depends on:
+Attributes
+----------
 
-## Attributes
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
+  </tr>
+  <tr>
+    <td><code>node['slurm-wlm']['package_name']</code></td>
+    <td>The name of the package that should be installed - defaults to "slurm-wlm"</td>
+    <td><code>slurm-wlm</code></td>
+  </tr>
+  <tr>
+    <td><code>node['slurm-wlm']['cluster_name']</code></td>
+    <td>The cluster name to use in the Slurm configuration. Sets the "ClusterName" parameter in slurm.conf</td>
+    <td><code>cluster</code></td>
+  </tr>
+  <tr>
+    <td><code>node['slurm-wlm']['controller']</code></td>
+    <td>The name of the host running the Slurm control daemon (slurmctld)</td>
+    <td><code>localhost</code></td>
+  </tr>
+  <tr>
+    <td><code>node['slurm-wlm']['accounting']['AccountingStorageEnforce']</code></td>
+    <td>Which, if any, association based limits and levels to enforce.  Valid values are "false", "associations", "limits", "nojobs", "nosteps", "qos", "safe", "wckeys", or "all".  False disables enforcement</td>
+    <td><code>false</code></td>
+  </tr>
+  <tr>
+    <td><code>node['slurm-wlm']['accounting']['AccountingStorageType']</code></td>
+    <td>Plugin type for the storage of accounting data.  Valid values are "none", "slurmdbd", "mysql", "filetxt".  Default is "none"</td>
+    <td><code>none</code></td>
+  </tr>
+  <tr>
+    <td><code>node['slurm-wlm']['accounting']['AccountingStorageHost']</code></td>
+    <td>Configures Slurm to use the SlurmDBD host indicated. Defaults to node['slurm-wlm']['controller']</td>
+    <td><code>localhost</code></td>
+  </tr>
+</table>
 
-- `default['slurm-wlm']['package_name']` - the name of the package to install
-- `default['slurm-wlm']['controller']` - hostname of the Slurm controller
-- `default['slurm-wlm']['dbd']['database_host']` - hostname of the database server
-- `default['slurm-wlm']['']` - 
+Recipes
+-------
+
+*No recipes defined*
+
+License and Author
+------------------
+
+Author:: Scientific Computing - Fred Hutchinson Cancer Research Ctr. (<scicomp@fredhutch.org>)
+
+Copyright:: 2016, Scientific Computing - Fred Hutchinson Cancer Research Ctr.
+
+License:: Apache 2.0
+
