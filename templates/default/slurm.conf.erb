@@ -1,0 +1,26 @@
+SomeParam=xyz
+AnotherParam=abc
+
+NODES
+-------
+<% 
+@cluster_nodes.each do |cluster_node, data|
+   if !cluster_node.eql? "id"
+%>
+NodeName=<%= data['NodeName'] %> Sockets=<%= data['Sockets'] %>
+<%
+  end
+end 
+%>
+
+PARTITIONS
+----------
+<% 
+@partitions.each do |partition, data|
+   if !partition.eql? "id"
+%>
+PartitionName=<%= data['PartitionName'] %> Priority=<%= data['Priority'] %>
+<%
+  end
+end 
+%>
