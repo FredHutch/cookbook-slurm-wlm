@@ -166,7 +166,7 @@ end
     feature_string = ''  # clears the string
     feature_nodes = data['Feature'] # grabs the Feature attribute of the json
     feature_nodes.each do |feature_node| # loop all the Features
-      feature_string << feature_node # append the nodes to a string and append comma at the end 
+      feature_string << feature_node # append the features to a string and append comma at the end 
       feature_string << ','
     end
     feature_string.chop! if feature_string.end_with? ','  # strip the trailing comma
