@@ -55,5 +55,5 @@ attribute 'slurm-wlm/configs/ClusterName',
         'being configured. This value will be put in for ' \
         'the `ClusterName` parameter in `slurm.conf`',
     required: 'required',
-    default: 'slurm-wlm'
+    default: 'cluster'
 
