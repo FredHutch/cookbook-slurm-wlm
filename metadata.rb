@@ -14,3 +14,38 @@ attribute 'slurm-wlm/package_name',
     required: 'required',
     default: 'slurm-wlm'
 
+attribute 'slurm-wlm/templates/wrapper',
+    display_name: 'Wrapper cookbook containing templates',
+    description:
+        'The name of a cookbook wrapping this one which ' \
+        'contains templates necessary for configuring ' \
+        'Slurm components.  If this is not included then ' \
+        'the templates in this cookbook are used ',
+    required: 'optional',
+    default: 'slurm-wlm'
+
+attribute 'slurm-wlm/templates/slurm_conf',
+    display_name: 'Template name for Slurm core daemons',
+    description:
+        'The name of the template for the Slurm\'s config ' \
+        'file `slurm.conf` ',
+    required: 'optional',
+    default: 'slurm.conf.erb'
+
+attribute 'slurm-wlm/templates/slurmdbd_conf',
+    display_name: 'Template name for Slurm database daemon config file',
+    description:
+        'The name of the template for the Slurm\'s `slurmdbd` ' \
+        'configuration file `slurmdbd.conf` ',
+    required: 'optional',
+    default: 'slurmdbd.conf.erb'
+
+attribute 'slurm-wlm/configs/ClusterName',
+    display_name: 'The name of the cluster being configured',
+    description:
+        'This attribute indicates the name of the cluster ' \
+        'being configured. This value will be put in for ' \
+        'the `ClusterName` parameter in `slurm.conf`',
+    required: 'required',
+    default: 'slurm-wlm'
+

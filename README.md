@@ -29,29 +29,24 @@ Attributes
     <td><code>slurm-wlm</code></td>
   </tr>
   <tr>
-    <td><code>node['slurm-wlm']['cluster_name']</code></td>
-    <td>The cluster name to use in the Slurm configuration. Sets the "ClusterName" parameter in slurm.conf</td>
-    <td><code>cluster</code></td>
+    <td><code>node['slurm-wlm']['templates']['wrapper']</code></td>
+    <td>The name of a cookbook wrapping this one which contains templates necessary for configuring Slurm components.  If this is not included then the templates in this cookbook are used </td>
+    <td><code>slurm-wlm</code></td>
   </tr>
   <tr>
-    <td><code>node['slurm-wlm']['controller']</code></td>
-    <td>The name of the host running the Slurm control daemon (slurmctld)</td>
-    <td><code>localhost</code></td>
+    <td><code>node['slurm-wlm']['templates']['slurm_conf']</code></td>
+    <td>The name of the template for the Slurm's config file `slurm.conf` </td>
+    <td><code>slurm.conf.erb</code></td>
   </tr>
   <tr>
-    <td><code>node['slurm-wlm']['accounting']['AccountingStorageEnforce']</code></td>
-    <td>Which, if any, association based limits and levels to enforce.  Valid values are "false", "associations", "limits", "nojobs", "nosteps", "qos", "safe", "wckeys", or "all".  False disables enforcement</td>
-    <td><code>false</code></td>
+    <td><code>node['slurm-wlm']['templates']['slurmdbd_conf']</code></td>
+    <td>The name of the template for the Slurm's `slurmdbd` configuration file `slurmdbd.conf` </td>
+    <td><code>slurmdbd.conf.erb</code></td>
   </tr>
   <tr>
-    <td><code>node['slurm-wlm']['accounting']['AccountingStorageType']</code></td>
-    <td>Plugin type for the storage of accounting data.  Valid values are "none", "slurmdbd", "mysql", "filetxt".  Default is "none"</td>
-    <td><code>none</code></td>
-  </tr>
-  <tr>
-    <td><code>node['slurm-wlm']['accounting']['AccountingStorageHost']</code></td>
-    <td>Configures Slurm to use the SlurmDBD host indicated. Defaults to node['slurm-wlm']['controller']</td>
-    <td><code>localhost</code></td>
+    <td><code>node['slurm-wlm']['configs']['ClusterName']</code></td>
+    <td>This attribute indicates the name of the cluster being configured. This value will be put in for the `ClusterName` parameter in `slurm.conf`</td>
+    <td><code>slurm-wlm</code></td>
   </tr>
 </table>
 

@@ -3,30 +3,44 @@
 
 # Configuring Slurm with this Module
 
-Slurm configuration is driven by configuration files- slurm.conf,
-slurmdbd.conf, etc.  This module provides templates for all of these but it
-will likely be necessary for you to override these templates using your own.
+## Wrap this Cookbook
 
-Each of these config files can have a custom template- define these in your wrapper cookbook attributes:
+This cookbook can configure a basic working cluster (see Defaults), but is
+intended to be wrapped by a cookbook that contains the templates, attributes,
+and data particular to your cluster.  For more information on wrapper
+cookbooks, refer to the [Chef Blog](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/)
 
-  - `slurm_conf_template`
-  - `slurmdbd_conf_template`
+## Config File Templates
 
-The value should point to a template in the cookbook's `templates` directory. For example, if you create your own template (`my_slurm.conf.erb`)in a wrapper cookbook named `my_slurm_config` add these two attributes to your wrapper:
+Slurm configuration is driven by plain text files using a "attribute=value"
+structure.  There is a configuration file for the core daemons (slurmd and
+slurmctld which use `slurm.conf`) and one for the Slurm database connector
+daemon (slurmdbd, which uses `slurmdbd.conf`). 
+
+The value should point to a template in your wrapper cookbook's `templates`
+directory. For example, if you create your own template (`my_slurm.conf.erb`)in
+a wrapper cookbook named `my_slurm_config` add these two attributes to your
+wrapper:
 
   - `node.default['slurm-wlm']['templates']['wrapper'] = 'my_slurm_config'`
   - `node.default['slurm-wlm']['templates']['slurm_conf'] = 'my_slurm.conf.erb'`
+  - `node.default['slurm-wlm']['templates']['slurmdbd_conf'] = 'my_slurmdbd.conf.erb'`
 
-The templates provided in this cookbook will expose any key-value pairs in the
-attribute `node['slurm-wlm']['configs']` and use databags for node and
+The templates provided in this cookbook will expose any and all key-value pairs
+in the attribute `node['slurm-wlm']['configs']` and use databags for node and
 partition definitions (see Defining Nodes and Partitions).  The default will
 not configure a DBD host or database.
+
+Your own templates can use attribute-values or could be a simple text file with
+no ERB.  Note that minimally the attribute
+`node.default['slurm-wlm']['configs']['ClusterName']` is required even if
+unused in the template(s)
 
 ## Slurm Configuration Parameters
 
 Slurm configs come in attribute/value pairs separated by an equals sign, e.g.:
 
-    ClusterName=bender
+    ClusterName=planetexpress
 
 There are numerous configuration parameters available- if you wish to use attributes to create the Slurm configuration, create the following:
 
