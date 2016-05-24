@@ -5,8 +5,14 @@
 # Copyright (c) 2016 The Authors, All Rights Reserved.
 
 # grab the data from data_bags
-nodes = data_bag_item('slurm-gizmo', 'nodes')
-partitions = data_bag_item('slurm-gizmo', 'partitions')
+nodes = data_bag_item(
+    "slurm-#{node['slurm-wlm']['configs']['ClusterName']}",
+    'nodes'
+)
+partitions = data_bag_item(
+    "slurm-#{node['slurm-wlm']['configs']['ClusterName']}",
+    'partitions'
+)
 
 # create the template and pass the data into the template
 template '/home/vagrant/slurm.conf' do
