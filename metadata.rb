@@ -14,6 +14,14 @@ attribute 'slurm-wlm/package_name',
     required: 'required',
     default: 'slurm-wlm'
 
+attribute 'slurm-wlm/package_source',
+    display_name: 'Repository containing Slurm packages',
+    description:
+        'URL of the repository containing Slurm- leave blank ' \
+        'to use the already configured or system sources',
+    required: 'optional',
+    default: ''
+
 attribute 'slurm-wlm/templates/wrapper',
     display_name: 'Wrapper cookbook containing templates',
     description:
