@@ -14,8 +14,8 @@ cookbooks, refer to the [Chef Blog](https://www.chef.io/blog/2013/12/03/doing-wr
 
 Slurm configuration is driven by plain text files using a "attribute=value"
 structure.  There is a configuration file for the core daemons (slurmd and
-slurmctld which use `slurm.conf`) and one for the Slurm database connector
-daemon (slurmdbd, which uses `slurmdbd.conf`). 
+slurmctld which use `slurm.conf`) and one for the Slurm account database
+connector daemon (slurmdbd, which uses `slurmdbd.conf`). 
 
 The value should point to a template in your wrapper cookbook's `templates`
 directory. For example, if you create your own template (`my_slurm.conf.erb`)in
@@ -29,7 +29,7 @@ wrapper:
 The templates provided in this cookbook will expose any and all key-value pairs
 in the attribute `node['slurm-wlm']['configs']` and use databags for node and
 partition definitions (see Defining Nodes and Partitions).  The default will
-not configure a DBD host or database.
+not configure a DBD host or account database.
 
 Your own templates can use attribute-values or could be a simple text file with
 no ERB.  Note that minimally the attribute
@@ -79,6 +79,20 @@ Or defined via databags using this in your template:
 
 `slurmdbd.conf` is created in a similar manner.  A stock template is defined in this cookbook, but intended to be overidden by your own template in a wrapper module.  Any attribute defined in `default['slurm-wlm']['slurmdbd']['config']` is made available to the templating engine.
 
+## Account Database Configuration
+
+If you want to have this cookbook set up and configure the Slurm database, set
+the following attribute:
+
+    node['slurm-wlm']['database']['manage'] = true
+
+> TODO: how to configure database secrets
+
+At this time, only the MySQL back-end is supported.  When configured, this
+module will set up the MySQL database indicated on the command-line according
+to the instructions given in the [Slurm
+documentation](http://slurm.schedmd.com/accounting.html).
+
 ## Ancillary Scripts
 
 Slurm allows you to run scripts at various times during the lifespan of a job
@@ -97,7 +111,7 @@ For example, to configure a prolog script, you can use the attribute:
         ...
     }
 
-And then add the following template to your wrapper:
+And then add the following snippet and your script template to your wrapper:
 
     template 'prolog' do
         source 'prolog.erb'
