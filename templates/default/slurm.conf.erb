@@ -2,8 +2,9 @@
 # Put this file on all nodes of your cluster.
 # See the slurm.conf man page for more information.
 
-ClusterName=gizmo
-ControlMachine=gadget
+
+ClusterName=<%= @config['ClusterName'] %>
+ControlMachine=<%= @config['ControlMachine'] %>
 #ControlAddr=
 #BackupController=
 #BackupAddr=
@@ -17,22 +18,22 @@ DisableRootJobs=YES
 CheckpointType=checkpoint/none
 JobCheckpointDir=/var/spool/slurm-llnl/checkpoint
 
-Prolog=/etc/slurm-llnl/slurmd.prolog
-Epilog=/etc/slurm-llnl/slurmd.epilog
+<% if @config['Prolog'] %>Prolog=<%= @configdir + '/' + @config['Prolog'] %><% else %>#Prolog unset <% end %>
+<% if @config['Epilog'] %>Epilog=<%= @configdir + '/' + @config['Epilog'] %><% else %>#Epilog unset <% end %>
 
-TaskProlog=/etc/slurm-llnl/task.prolog.sh
-#TaskEpilog unset 
+<% if @config['TaskProlog'] %>TaskProlog=<%= @configdir + '/' + @config['TaskProlog'] %><% else %>#TaskProlog unset <% end %>
+<% if @config['TaskEpilog'] %>TaskEpilog=<%= @configdir + '/' + @config['TaskEpilog'] %><% else %>#TaskEpilog unset <% end %>
 
-#PrologSlurmctld unset 
-#EpilogSlurmctld unset 
+<% if @config['PrologSlurmctld'] %>PrologSlurmctld=<%= @configdir + '/' + @config['PrologSlurmctld'] %><% else %>#PrologSlurmctld unset <% end %>
+<% if @config['EpilogSlurmctld'] %>EpilogSlurmctld=<%= @configdir + '/' + @config['EpilogSlurmctld'] %><% else %>#EpilogSlurmctld unset <% end %>
 
-FirstJobID=27072384
+<% if @config['FirstJobID'] %>FirstJobID=<%= @config['FirstJobID'] %><% else %>#FirstJobID unset <% end %>
 #GresTypes=
 GroupUpdateForce=600
 #GroupUpdateTime=600
 #JobFileAppend=0
 JobRequeue=0
-JobSubmitPlugins=default_account,default_qos
+<% if @config['JobSubmitPlugins'] %>JobSubmitPlugins=<%= @config['JobSubmitPlugins'] %><% else %>#JobSubmitPlugins unset <% end %>
 #KillOnBadExit=0
 #Licenses=foo*4,bar
 #MailProg=/bin/mail
@@ -41,7 +42,7 @@ MaxJobCount=15000
 MpiDefault=openmpi
 MpiParams=ports=12000-12999
 #PluginDir=
-#PlugStackConfig unset 
+<% if @config['PlugStackConfig'] %>JobSubmitPlugins=<%= @config['PlugStackConfig'] %><% else %>#PlugStackConfig unset <% end %>
 #PrivateData=jobs
 ProctrackType=proctrack/linuxproc
 #PropagatePrioProcess=0
@@ -50,18 +51,18 @@ PropagateResourceLimits=NONE
 ReturnToService=2
 #SallocDefaultCommand=
 
-SlurmctldPidFile=/run/slurm-llnl/slurmctld.pid
+SlurmctldPidFile=<%= @rundir %>/<%= @service %>/slurmctld.pid
 SlurmctldPort=6817
 
 # Use "%n" with multiple nodes per host
-SlurmdPidFile=/run/slurm-llnl/slurmd.%n.pid
+SlurmdPidFile=<%= @rundir %>/<%= @service %>/slurmd.%n.pid
 SlurmdPort=6818
 SlurmdSpoolDir=/var/tmp/slurmd
 
 SlurmUser=slurm
 #SrunEpilog=
 #SrunProlog=
-StateSaveLocation=/var/spool/slurm-llnl/state
+StateSaveLocation=/var/spool/<%= @service %>/state
 SwitchType=switch/none
 TaskPlugin=task/none
 #TaskPluginParam=
@@ -86,8 +87,8 @@ MessageTimeout=45
 MinJobAge=300
 OverTimeLimit=2160
 
-SlurmctldTimeout=2000
-SlurmdTimeout=2000
+<% if @config['SlurmctldTimeout'] %>SlurmctldTimeout=<%= @config['SlurmctldTimeout'] %><% else %>#SlurmctldTimeout unset<% end %>
+<% if @config['SlurmdTimeout'] %>SlurmdTimeout=<%= @config['SlurmdTimeout'] %><% else %>#SlurmdTimeout unset<% end %>
 #UnkillableStepTimeout=60
 #VSizeFactor=0
 Waittime=0
@@ -100,32 +101,32 @@ Waittime=0
 # FastSchedule=2 for testing purposes only
 FastSchedule=0
 #
-SchedulerType=sched/backfill
-SchedulerParameters=bf_max_job_user=10,defer,bf_resolution=360,bf_window=10080,bf_continue,
+SchedulerType=<%= @config['SchedulerType'] %>
+SchedulerParameters=<%= @config['SchedulerParameters'] %>
 
 SelectType=select/cons_res
 SelectTypeParameters=CR_Core
 
-PreemptMode=REQUEUE
-PreemptType=preempt/qos
+<% if @config['PreemptMode'] %>PreemptMode=<%= @config['PreemptMode'] %><% else %>#PreemptMode unset <% end %>
+<% if @config['PreemptType'] %>PreemptType=<%= @config['PreemptType'] %><% else %>#PreemptType unset <% end %>
 
 #
 # JOB PRIORITY
-PriorityType=priority/multifactor
-PriorityDecayHalfLife=1-00:00:00
-#PriorityCalcPeriod unset 
-#PriorityFavorSmall unset 
-PriorityMaxAge=1-00:00:00
-#PriorityUsageResetPeriod unset 
-PriorityWeightAge=10
-PriorityWeightFairshare=100000000
-#PriorityWeightPartition unset 
-#PriorityWeightJobSize unset 
-PriorityWeightQOS=1000000
+<% if @config['PriorityType'] %>PriorityType=<%= @config['PriorityType'] %><% else %>#PriorityType unset <% end %>
+<% if @config['PriorityDecayHalfLife'] %>PriorityDecayHalfLife=<%= @config['PriorityDecayHalfLife'] %><% else %>#PriorityDecayHalfLife unset <% end %>
+<% if @config['PriorityCalcPeriod'] %>PriorityCalcPeriod=<%= @config['PriorityCalcPeriod'] %><% else %>#PriorityCalcPeriod unset <% end %>
+<% if @config['PriorityFavorSmall'] %>PriorityFavorSmall=<%= @config['PriorityFavorSmall'] %><% else %>#PriorityFavorSmall unset <% end %>
+<% if @config['PriorityMaxAge'] %>PriorityMaxAge=<%= @config['PriorityMaxAge'] %><% else %>#PriorityMaxAge unset <% end %>
+<% if @config['PriorityUsageResetPeriod'] %>PriorityUsageResetPeriod=<%= @config['PriorityUsageResetPeriod'] %><% else %>#PriorityUsageResetPeriod unset <% end %>
+<% if @config['PriorityWeightAge'] %>PriorityWeightAge=<%= @config['PriorityWeightAge'] %><% else %>#PriorityWeightAge unset <% end %>
+<% if @config['PriorityWeightFairshare'] %>PriorityWeightFairshare=<%= @config['PriorityWeightFairshare'] %><% else %>#PriorityWeightFairshare unset <% end %>
+<% if @config['PriorityWeightPartition'] %>PriorityWeightPartition=<%= @config['PriorityWeightPartition'] %><% else %>#PriorityWeightPartition unset <% end %>
+<% if @config['PriorityWeightJobSize'] %>PriorityWeightJobSize=<%= @config['PriorityWeightJobSize'] %><% else %>#PriorityWeightJobSize unset <% end %>
+<% if @config['PriorityWeightQOS'] %>PriorityWeightQOS=<%= @config['PriorityWeightQOS'] %><% else %>#PriorityWeightQOS unset <% end %>
 #
 # LOGGING AND ACCOUNTING
 AccountingStorageEnforce=limits,qos
-AccountingStorageHost=gadget
+AccountingStorageHost=<%= @config['ControlMachine'] %>
 AccountingStorageType=accounting_storage/slurmdbd
 
 JobAcctGatherFrequency=60
@@ -133,10 +134,10 @@ JobAcctGatherType=jobacct_gather/linux
 
 DebugFlags=NO_CONF_HASH
 SlurmctldDebug=3
-SlurmctldLogFile=/var/log/slurmctld.log
+SlurmctldLogFile=<%= @config['SlurmctldLogFile'] %>
 SlurmdDebug=3
-SlurmdLogFile=/var/log/slurm-llnl/slurmd.%n.log
-SlurmSchedLogFile=/var/log/slurmsched.log
+SlurmdLogFile=<%= @config['SlurmdLogFile'] %>
+SlurmSchedLogFile=<%= @config['SlurmdSchedLogFile'] %>
 SlurmSchedLogLevel=0
 #
 
