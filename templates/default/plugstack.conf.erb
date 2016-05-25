@@ -1,0 +1,8 @@
+#
+# SPANK Plugin Configuration
+
+<% if @spank_plugins -%>
+<% @spank_plugins.values.each do |plugin| -%><%=plugin['required']%> <%=plugin['path']%> <%=plugin['arguments']%> <% end -%>
+<% else %>
+# no SPANK plugins configured
+<% end %>
