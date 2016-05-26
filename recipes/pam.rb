@@ -1,6 +1,8 @@
 package 'libpam-slurm' do
   action :install
 end
-# todo: add 
-# 'account required                        pam_slurm.so' to /files/etc/pam.d/common-account/
 
+append_if_no_line 'append line to common-account' do
+  path '/etc/pam.d/common-account'
+  line 'account required                        pam_slurm.so'
+end

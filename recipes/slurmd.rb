@@ -1,7 +1,8 @@
-package 'slurmctld' do
+package 'slurmd' do
   action :install
 end
 
-service 'slurmctld' do
+service 'slurmd' do
   action [ :enable, :start ]
 end
+
