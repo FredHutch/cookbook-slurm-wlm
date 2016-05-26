@@ -5,6 +5,7 @@ license 'Apache 2.0'
 description 'Installs and configures SchedMD Slurm Workload Manager'
 version '0.1.0'
 
+depends 'line', '~> 0.6.3' # resources to manipulate files 
 
 attribute 'slurm-wlm/package_name',
     display_name: 'Package name for installation',
