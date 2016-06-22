@@ -1,4 +1,5 @@
 package 'munge' do
+  options "-y --force-yes" # forces YES for all prompts
   action :install
 end
 
