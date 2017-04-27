@@ -10,19 +10,21 @@ intended to be wrapped by a cookbook that contains the templates, attributes,
 and data particular to your cluster.  For more information on wrapper
 cookbooks, refer to the [Chef Blog](https://www.chef.io/blog/2013/12/03/doing-wrapper-cookbooks-right/)
 
-## Config File Templates
+## Config Files
 
 Slurm configuration is driven by plain text files using a "attribute=value"
 structure.  There is a configuration file for the core daemons (slurmd and
 slurmctld which use `slurm.conf`) and one for the Slurm account database
 connector daemon (slurmdbd, which uses `slurmdbd.conf`). 
 
-The value should point to a template in your wrapper cookbook's `templates`
+Some basic templates are provided in this cookbook for testing of the cookbook. However, this cookbook is designed to use templates from a wrapper cookbook.  The attribute 'node.default['slurm-wlm']['templates']['cookbook'] = 'my_slurm_config''
+
+The value should point to a template in your wrapper cookbook''s `templates`
 directory. For example, if you create your own template (`my_slurm.conf.erb`)in
 a wrapper cookbook named `my_slurm_config` add these two attributes to your
 wrapper:
 
-  - `node.default['slurm-wlm']['templates']['wrapper'] = 'my_slurm_config'`
+  - `node.default['slurm-wlm']['templates']['cookbook'] = 'my_slurm_config'`
   - `node.default['slurm-wlm']['templates']['slurm_conf'] = 'my_slurm.conf.erb'`
   - `node.default['slurm-wlm']['templates']['slurmdbd_conf'] = 'my_slurmdbd.conf.erb'`
 
@@ -44,12 +46,14 @@ Slurm configs come in attribute/value pairs separated by an equals sign, e.g.:
 
 There are numerous configuration parameters available- if you wish to use attributes to create the Slurm configuration, create the following:
 
-    node['slurm-wlm']['configs'] => {
-        'ClusterName' = 'planetexpress',
-        'ControlMachine' = 'bender',
-        'FirstJobID' = 42,
-        ...
-    }
+'''
+node['slurm-wlm']['configs'] => {
+    'ClusterName' = 'planetexpress',
+    'ControlMachine' = 'bender',
+    'FirstJobID' = 42,
+    ...
+}
+'''
 
 For each of these the key must be a valid Slurm attribute.  These can then be referenced in your template:
 
@@ -57,23 +61,16 @@ For each of these the key must be a valid Slurm attribute.  These can then be re
     
 or possibly more efficiently:
 
-    <% @node['slurm-wlm']['configs'].each do |attr,value| -%> 
-    <%= attr %> = <%= value %>
-    <% end -%>
+'''
+<% @node['slurm-wlm']['configs'].each do |attr,value| -%> 
+<%= attr %> = <%= value %>
+<% end -%>
+'''
 
 Note that no validation or consistency is checked- incorrect inputs will not raise an error until one of the daemons is started.
 
 ## Defining Nodes and Partitions
 
-The slurm configuration file also defines partitions and nodes.  These can be
-defined in your template statically:
-
-    NodeName=node01 CPUs=2 ...
-    PartitionName=partition1 shared=FORCE ...
-
-Or defined via databags using this in your template:
-
-> TBD- do we define just the lines, or parameters that we expand?
 
 ## `slurmdbd.conf` Configuration
 
