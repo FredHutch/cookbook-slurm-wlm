@@ -17,66 +17,74 @@ structure.  There is a configuration file for the core daemons (slurmd and
 slurmctld which use `slurm.conf`) and one for the Slurm account database
 connector daemon (slurmdbd, which uses `slurmdbd.conf`). 
 
-Some basic templates are provided in this cookbook for testing of the cookbook. However, this cookbook is designed to use templates from a wrapper cookbook.  The attribute 'node.default['slurm-wlm']['templates']['cookbook'] = 'my_slurm_config''
+Some basic templates are provided in this cookbook for testing of the cookbook. However, this cookbook is designed to use templates from a wrapper cookbook.  The attribute `node.default['slurm-wlm']['templates']['cookbook']` should contain the name of the cookbook where this cookbook will find the templates to use.
 
-The value should point to a template in your wrapper cookbook''s `templates`
-directory. For example, if you create your own template (`my_slurm.conf.erb`)in
-a wrapper cookbook named `my_slurm_config` add these two attributes to your
-wrapper:
+For example, if you create your own template (`my_slurm.conf.erb`)in
+a wrapper cookbook named `wrap_slurm`:
 
-  - `node.default['slurm-wlm']['templates']['cookbook'] = 'my_slurm_config'`
-  - `node.default['slurm-wlm']['templates']['slurm_conf'] = 'my_slurm.conf.erb'`
-  - `node.default['slurm-wlm']['templates']['slurmdbd_conf'] = 'my_slurmdbd.conf.erb'`
+- `node.default['slurm-wlm']['templates']['cookbook'] = 'wrap_slurm'`
 
-The templates provided in this cookbook will expose any and all key-value pairs
-in the attribute `node['slurm-wlm']['configs']` and use databags for node and
-partition definitions (see Defining Nodes and Partitions).  The default will
-not configure a DBD host or account database.
+Template names are similarly indicated:
 
-Your own templates can use attribute-values or could be a simple text file with
-no ERB.  Note that minimally the attribute
-`node.default['slurm-wlm']['configs']['ClusterName']` is required even if
-unused in the template(s)
+- `node.default['slurm-wlm']['templates']['slurm_conf'] = 'my_slurm.conf.erb'`
+- `node.default['slurm-wlm']['templates']['slurmdbd_conf'] = 'my_slurmdbd.conf.erb'`
 
-## Slurm Configuration Parameters
+Your own templates can use attribute-values or could be a simple text file with no ERB.  Note that minimally the attribute `node.default['slurm-wlm']['configs']['ClusterName']` is required even if unused in the template(s)
+
+## `slurm.conf` Configuration Parameters
 
 Slurm configs come in attribute/value pairs separated by an equals sign, e.g.:
 
     ClusterName=planetexpress
 
-There are numerous configuration parameters available- if you wish to use attributes to create the Slurm configuration, create the following:
+There are numerous configuration parameters available and these will change over time.  The definition of the templates will expose any subkeys of the attribute `node['slurm-wlm']['configs']['slurm']` into the namespace of the template.  Thus:
 
-'''
-node['slurm-wlm']['configs'] => {
-    'ClusterName' = 'planetexpress',
-    'ControlMachine' = 'bender',
-    'FirstJobID' = 42,
-    ...
-}
-'''
+`node['slurm-wlm']['configs']['slurm']['ClusterName'] = 'planetexpress'`
 
-For each of these the key must be a valid Slurm attribute.  These can then be referenced in your template:
+would make a varaible `ClusterName` with value `planetexpress` available to the `slurm.conf` template that can then be referenced in your template:
 
-    ClusterName = <%= @node['slurm-wlm']['configs']['ClusterName'] %>
+`ClusterName = <%= @ClusterName %>`
     
-or possibly more efficiently:
-
-'''
-<% @node['slurm-wlm']['configs'].each do |attr,value| -%> 
-<%= attr %> = <%= value %>
-<% end -%>
-'''
-
-Note that no validation or consistency is checked- incorrect inputs will not raise an error until one of the daemons is started.
-
-## Defining Nodes and Partitions
-
+> These configuration parameters are not checked to ensure that they will work within Slurm- incorrect inputs will not raise an error until one of the daemons is started.
 
 ## `slurmdbd.conf` Configuration
 
-`slurmdbd.conf` is created in a similar manner.  A stock template is defined in this cookbook, but intended to be overidden by your own template in a wrapper module.  Any attribute defined in `default['slurm-wlm']['slurmdbd']['config']` is made available to the templating engine.
+`slurmdbd.conf` is created in a similar manner.  A stock template is defined in this cookbook, but intended to be overidden by your own template in a wrapper module.  Any attribute defined in `default['slurm-wlm']['configs']['slurmdbd']` is made available to the templating engine.
 
-## Account Database Configuration
+## Other Configuration Files
+
+> TBD: I expect that this cookbook will follow a similar approach for writing these files
+
+## Prolog/Epilog Scripts
+
+Slurm allows you to run scripts at various times during the lifespan of a job
+or run scripts to perform various basic maintenance tasks (e.g. the DBD
+`ArchiveScript`).  These are basic shell scripts.
+
+This cookbook does not define any scripts.  It is necessary for your wrapper
+cookbook to provide the script (via template or plain file) and specify the
+location in the Slurm configuration attributes.
+
+For example, to configure a prolog script, you can use the attribute:
+
+    node['slurm-wlm']['slurm']['configs'] => {
+        ...
+        'Prolog' = '/usr/share/slurm-wlm/scripts/slurmd.prolog',
+        ...
+    }
+
+And then add the following snippet and your script template to your wrapper:
+
+    template 'prolog' do
+        source 'prolog.erb'
+        path node['slurm-wlm']['slurm']['configs']['Prolog']
+        ...
+        ...
+    end
+
+> TBD: sanity check that ensures if `node['slurm-wlm']['slurm']['configs']['*log']` is set that there is a corresponding object in the resource collection
+
+# Account Database Configuration
 
 If you want to have this cookbook set up and configure the Slurm database, set
 the following attribute:
@@ -90,31 +98,5 @@ module will set up the MySQL database indicated on the command-line according
 to the instructions given in the [Slurm
 documentation](http://slurm.schedmd.com/accounting.html).
 
-## Ancillary Scripts
-
-Slurm allows you to run scripts at various times during the lifespan of a job
-or run scripts to perform various basic maintenance tasks (e.g. the DBD
-`ArchiveScript`).  These are basic shell scripts.
-
-This cookbook does not define any scripts.  It is necessary for your wrapper
-cookbook to provide the script (via template or plain file) and specify the
-location in the Slurm configuration.
-
-For example, to configure a prolog script, you can use the attribute:
-
-    node['slurm-wlm']['configs'] => {
-        ...
-        'Prolog' = '/usr/share/slurm-wlm/scripts/slurmd.prolog',
-        ...
-    }
-
-And then add the following snippet and your script template to your wrapper:
-
-    template 'prolog' do
-        source 'prolog.erb'
-        path node['slurm-wlm']['configs']['Prolog']
-        ...
-        ...
-    end
 
 
