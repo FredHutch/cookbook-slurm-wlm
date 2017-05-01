@@ -7,20 +7,25 @@ if node['slurm-wlm']['config']['ArchiveEvents'] == 'yes'
   end
 end
 
-template "#{node['slurm-wlm']['files']['configdir']}/#{node['slurm-wlm']['files']['dbdconfig']}" do
-  source "#{node['slurm-wlm']['files']['dbdconfig']}.erb"
-  owner 'root'
-  group 'root'
-  mode '0755'
-      variables(config: node['slurm-wlm']['config'],
-                files: node['slurm-wlm']['files'])
-  action :create
-end
-
 package 'slurmdbd' do
   options "-y --force-yes" # forces YES for all prompts
   action :install
 end
+
+# slurmdbd.conf 
+# create the template and pass the data into the template
+template "#{node['slurm-wlm']['files']['configdir']}/slurmdb.conf" do
+  cookbook node['slurm-wlm']['templates']['cookbook']
+  source node['slurm-wlm']['templates']['slurmdbd_conf']
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    node['slurm-wlm']['config']['slurmdbd']
+  )
+  action :create
+end
+
 service 'slurmdbd' do
   action [ :enable, :start ]
 end

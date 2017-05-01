@@ -17,16 +17,14 @@ partitions = data_bag_item(
 # slurm.conf 
 # create the template and pass the data into the template
 template "#{node['slurm-wlm']['files']['configdir']}/slurm.conf" do
-  source 'slurm.conf.erb'
+  cookbook node['slurm-wlm']['templates']['cookbook']
+  source node['slurm-wlm']['templates']['slurm_conf']
   owner 'root'
   group 'root'
-  mode '0755'
-  variables(cluster_nodes: nodes, 
-            partitions: partitions,
-            config: node['slurm-wlm']['config'],
-            configdir: node['slurm-wlm']['files']['configdir'],
-            rundir: node['slurm-wlm']['files']['rundir'],
-            service: node['slurm-wlm']['files']['service'])
+  mode '0644'
+  variables(
+    node['slurm-wlm']['config']['slurm']
+  )
   action :create
 end
 

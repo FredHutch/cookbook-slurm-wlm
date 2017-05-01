@@ -1,3 +1,8 @@
+default['slurm-wlm']['templates'] = {
+  'cookbook' => 'slurm-wlm',
+  'slurm_conf' => 'slurm.conf.erb',
+  'slurmdbd_conf' => 'slurmdbd.conf.erb',
+
 default['slurm-wlm']['files'] = {
   'configdir' => '/etc/slurm-llnl',
   'daemon_user' => 'slurm',
