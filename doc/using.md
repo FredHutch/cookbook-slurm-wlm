@@ -73,6 +73,10 @@ For example, to configure a prolog script, you can use the attribute:
         ...
     }
 
+Referencing this in your `slurm.conf` template:
+
+    Prolog=<%= @Prolog %>
+
 And then add the following snippet and your script template to your wrapper:
 
     template 'prolog' do
@@ -81,8 +85,6 @@ And then add the following snippet and your script template to your wrapper:
         ...
         ...
     end
-
-> TBD: sanity check that ensures if `node['slurm-wlm']['slurm']['configs']['*log']` is set that there is a corresponding object in the resource collection
 
 # Account Database Configuration
 
