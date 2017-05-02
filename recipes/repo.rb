@@ -12,5 +12,5 @@ unless node['slurm-wlm']['repository']['uri'].nil?
     distribution 'trusty'
   end
 
-  apt_update 'update apt'
 end
+apt_update 'update apt'
