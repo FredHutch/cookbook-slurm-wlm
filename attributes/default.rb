@@ -7,15 +7,29 @@
 # ...
 #
 # Set 'manage' to false if this cookbook won't manage installation
-default['slurm-wlm']['packages'] = {
-  'manage' => true,
-  'client' => 'slurm-client',
-  'slurmd' => 'slurmd',
-  'slurmctld' => 'slurmctld',
-  'slurmdbd' => 'slurmdbd',
-  'pam' => 'libpam-slurm',
-  'munge' => 'munge'
-}
+default['slurm-wlm']['packages']['manage'] = true
+case node['lsb']['codename']
+when 'trusty'
+  default['slurm-wlm']['packages'] = {
+    'client' => 'slurm-llnl',
+    'slurmd' => 'slurm-llnl',
+    'slurmctld' => 'slurm-llnl',
+    'slurmdbd' => 'slurm-llnl-slurmdbd',
+    'pam' => 'libpam-slurm',
+    'munge' => 'munge'
+  }
+when 'xenial'
+  default['slurm-wlm']['packages'] = {
+    'client' => 'slurm-client',
+    'slurmd' => 'slurmd',
+    'slurmctld' => 'slurmctld',
+    'slurmdbd' => 'slurmdbd',
+    'pam' => 'libpam-slurm',
+    'munge' => 'munge'
+  }
+else
+  raise "unsupported platform #{node['lsb']['codename']}"
+end
 
 default['slurm-wlm']['templates'] = {
   'cookbook' => 'slurm-wlm',
