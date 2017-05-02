@@ -26,18 +26,13 @@ suites:
       inspec_tests:
         - test/smoke/default
     attributes:
-  - name: slurmd
-    run_list:
-      - recipe[slurm-wlm::default]
-      - recipe[slurm-wlm::slurmd]
-    verifier:
-      inspec_tests:
-        - test/smoke/default
-    attributes:
-  - name: slurmctld
+  - name: fullstack
+    # This tests controller and daemon on one so that
+    # daemons can start properly
     run_list:
       - recipe[slurm-wlm::default]
       - recipe[slurm-wlm::slurmctld]
+      - recipe[slurm-wlm::slurmd]
     verifier:
       inspec_tests:
         - test/smoke/default
