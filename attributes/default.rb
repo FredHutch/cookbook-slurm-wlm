@@ -10,6 +10,11 @@
 default['slurm-wlm']['packages']['manage'] = true
 case node['lsb']['codename']
 when 'trusty'
+  default['slurm-wlm']['services'] = {
+    'slurmd' => 'slurm-llnl',
+    'slurmctld' => 'slurm-llnl',
+    'slurmdbd' => 'slurmdbd'
+  }
   default['slurm-wlm']['packages'] = {
     'client' => 'slurm-llnl',
     'slurmd' => 'slurm-llnl',
@@ -19,6 +24,11 @@ when 'trusty'
     'munge' => 'munge'
   }
 when 'xenial'
+  default['slurm-wlm']['services'] = {
+    'slurmd' => 'slurmd',
+    'slurmctld' => 'slurmctld',
+    'slurmdbd' => 'slurmdbd'
+  }
   default['slurm-wlm']['packages'] = {
     'client' => 'slurm-client',
     'slurmd' => 'slurmd',
