@@ -1,1 +1,1 @@
-default['slurm-wlm']['repository']['uri'] = 'http://octopus.fhcrc.org/aptly/public'
+default['slurm-wlm']['repository']['uri'] = nil
