@@ -53,8 +53,10 @@ default['slurm-wlm']['files'] = {
 }
 
 default['slurm-wlm']['config']['slurm'] = {
-  'ClusterName' => 'test-kitchen',
-  'ControlMachine' => 'test-control'
+  'ClusterName' => 'chipmunks',
+  'ControlMachine' => 'alvin',
+  'NodeName' => 'alvin',
+  'PartitionName' => 'alvin Nodes=alvin'
 }
 
 default['slurm-wlm']['config']['slurmdbd'] = {

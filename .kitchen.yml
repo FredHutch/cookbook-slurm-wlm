@@ -37,3 +37,5 @@ suites:
       inspec_tests:
         - test/smoke/default
     attributes:
+    driver:
+      vm_hostname: alvin
