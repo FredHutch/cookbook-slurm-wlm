@@ -53,40 +53,8 @@ default['slurm-wlm']['files'] = {
 }
 
 default['slurm-wlm']['config']['slurm'] = {
-  'JobCheckpointDir' => \
-    "#{default['slurm-wlm']['files']['spooldir']}/checkpoint",
-  'ClusterName' => 'gizmo',
-  'ControlMachine' => 'test-control',
-  'TaskProlog' => 'task.prolog.sh',
-  'TaskEpilog' => '',
-  'Prolog' => 'slurmd.prolog.sh',
-  'Epilog' => 'slurmd.epilog.sh',
-  'PrologSlurmctld' => '',
-  'EpilogSlurmctld' => '',
-  'JobSubmitPlugins' => '',
-  'SlurmctldLogFile' => \
-    "#{default['slurm-wlm']['files']['logdir']}/slurmctld.log",
-  'SlurmdLogFile' => \
-    "#{default['slurm-wlm']['files']['logdir']}/slurmd.log",
-  'SlurmdSchedLogFile' => \
-    "#{default['slurm-wlm']['files']['logdir']}/slurmsched.log",
-  'SchedulerType' => 'sched/builtin',
-  'PriorityType' => 'priority/basic',
-  'SlurmdTimeout' => '300',
-  'SlurmctldTimeout' => '300',
-  'ArchiveEvents' => 'no',
-  'ArchiveJobs' => 'no',
-  'ArchiveResvs' => 'no',
-  'ArchiveScript' => '',
-  'ArchiveSteps' => 'no',
-  'ArchiveSuspend' => 'no',
-  'ArchiveDir' => \
-    "#{default['slurm-wlm']['files']['spooldir']}/slurm-event-archive",
-  'PurgeEventAfter' => '',
-  'PurgeJobAfter' => '',
-  'PurgeResvAfter' => '',
-  'PurgeStepAfter' => '',
-  'PurgeSuspendAfter' => ''
+  'ClusterName' => 'test-kitchen',
+  'ControlMachine' => 'test-control'
 }
 
 default['slurm-wlm']['config']['slurmdbd'] = {
