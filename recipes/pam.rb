@@ -1,5 +1,5 @@
 package 'libpam-slurm' do
-  options "-y --force-yes" # forces YES for all prompts
+  options '-y --force-yes'
   action :install
 end
 
@@ -8,4 +8,3 @@ end
 #   path '/etc/pam.d/common-account'
 #   line 'account required                        pam_slurm.so'
 # end
-

@@ -8,11 +8,11 @@ if node['slurm-wlm']['config']['ArchiveEvents'] == 'yes'
 end
 
 package 'slurmdbd' do
-  options "-y --force-yes" # forces YES for all prompts
+  options '-y --force-yes'
   action :install
 end
 
-# slurmdbd.conf 
+# slurmdbd.conf
 # create the template and pass the data into the template
 template "#{node['slurm-wlm']['files']['configdir']}/slurmdb.conf" do
   cookbook node['slurm-wlm']['templates']['cookbook']
@@ -27,13 +27,5 @@ template "#{node['slurm-wlm']['files']['configdir']}/slurmdb.conf" do
 end
 
 service 'slurmdbd' do
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
-
-# execute 'cluster_add' do
-#   command "sacctmgr --immediate add cluster #{node['slurm-wlm']['config']['ClusterName']}"
-#   environment 'PATH' => "/bin:/usr/bin:/usr/sbin"
-#   not_if "sacctmgr --noheader list cluster #{node['slurm-wlm']['config']['ClusterName']} format=Cluster |/bin/grep #{node['slurm-wlm']['config']['ClusterName']}"
-#   action :run
-# end
-

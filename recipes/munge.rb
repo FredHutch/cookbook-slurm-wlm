@@ -1,8 +1,7 @@
 package 'munge' do
-  options "-y --force-yes" # forces YES for all prompts
+  options '-y --force-yes' # forces YES for all prompts
   action :install
 end
-
 
 directory '/etc/munge' do
   owner 'munge'
@@ -52,10 +51,5 @@ directory '/var/run/munge' do
 end
 
 service 'munge' do
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
-
-
-
-
-

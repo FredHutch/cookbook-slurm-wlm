@@ -3,9 +3,7 @@
 # Recipe:: default
 #
 # Copyright (c) 2016 The Authors, All Rights Reserved.
- 
- # Configurent the APT repo to point to FH's reverse proxy
-#
+
 include_recipe 'slurm-wlm::repo'
 # include_recipe 'slurm-wlm::munge'
 # include_recipe 'slurm-wlm::config'

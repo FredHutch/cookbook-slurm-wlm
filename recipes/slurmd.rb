@@ -1,9 +1,8 @@
 package 'slurmd' do
-  options "-y --force-yes" # forces YES for all prompts
+  options '-y --force-yes'
   action :install
 end
 
 service 'slurmd' do
-  action [ :enable, :start ]
+  action [:enable, :start]
 end
-
