@@ -86,6 +86,41 @@ And then add the following snippet and your script template to your wrapper:
         ...
     end
 
+# Package Management
+
+Packages are installed based on the recipes run:
+
+ - client: installs Slurm clients (srun, squeue, sbatch, et alia)
+ - slurmd: installs Slurm daemon
+ - slurmctld: installs the Slurm cluster controller
+ - slurmdbd: installs the database daemon
+ - pam: installs libpam-slurm
+ - munge: installs munge for authentication
+
+If you want this cookbook to manage packages, set `default['slurm-wlm']['packages']['manage']` to `true`.  A value of false will still configure the system, but will assume the necessary packages have already been installed.
+
+The remainder of the elements of the `default['slurm-wlm']['packages']` map the
+recipe being run (slurmd, client, etc.) to a package that should be installed.
+The default maps the recipes to packages from the Debian `slurm-wlm` package:
+if different packages are required, change the value for each of the recipe
+keys.  Note that _every_ value is required. Recipes may share package names.
+
+For example, if you have a package "slurm-everything" which has all of the
+slurm components installed:
+
+    node.override['slurm-wlm']['packages'] = {
+      'client' => 'slurm-everything',
+      'slurmctld' => 'slurm-everything',
+      ...
+      'munge' => 'slurm-everything'
+    }
+
+Note that dependencies should be handled by the package.  If multiple packages
+are required for a recipe but not handled by the package's dependencies, an
+array of package names may be used, e.g:
+
+    default['slurm-wlm']['packages']['slurmd'] => ['slurmd', 'libslurm']
+
 # Account Database Configuration
 
 If you want to have this cookbook set up and configure the Slurm database, set
@@ -99,6 +134,4 @@ At this time, only the MySQL back-end is supported.  When configured, this
 module will set up the MySQL database indicated on the command-line according
 to the instructions given in the [Slurm
 documentation](http://slurm.schedmd.com/accounting.html).
-
-
 

@@ -1,3 +1,7 @@
+unless node['slurm-wlm']['packages']['manage'] == false
+  package node['slurm-wlm']['packages']['slurmdbd']
+end
+
 if node['slurm-wlm']['config']['ArchiveEvents'] == 'yes'
   directory node['slurm-wlm']['config']['ArchiveDir'] do
     owner 'slurm'
@@ -5,11 +9,6 @@ if node['slurm-wlm']['config']['ArchiveEvents'] == 'yes'
     mode '0644'
     action :create
   end
-end
-
-package 'slurmdbd' do
-  options '-y --force-yes'
-  action :install
 end
 
 # slurmdbd.conf

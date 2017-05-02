@@ -1,6 +1,5 @@
-package 'slurmd' do
-  options '-y --force-yes'
-  action :install
+unless node['slurm-wlm']['packages']['manage'] == false
+  package node['slurm-wlm']['packages']['slurmd']
 end
 
 service 'slurmd' do

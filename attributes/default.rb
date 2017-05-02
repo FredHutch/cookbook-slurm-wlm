@@ -1,3 +1,22 @@
+# Package names that each recipe should install. These defaults are for
+# Debian/Ubuntu.  If you create a single package, you still need to set the
+# package name for each recipe.  e.g. if you have package "slurm-everything":
+
+# 'client' => 'slurm-everything',
+# 'slurmctld' => 'slurm-everything',
+# ...
+#
+# Set 'manage' to false if this cookbook won't manage installation
+default['slurm-wlm']['packages'] = {
+  'manage' => true,
+  'client' => 'slurm-client',
+  'slurmd' => 'slurmd',
+  'slurmctld' => 'slurmctld',
+  'slurmdbd' => 'slurmdbd',
+  'pam' => 'libpam-slurm',
+  'munge' => 'munge'
+}
+
 default['slurm-wlm']['templates'] = {
   'cookbook' => 'slurm-wlm',
   'slurm_conf' => 'slurm.conf.erb',

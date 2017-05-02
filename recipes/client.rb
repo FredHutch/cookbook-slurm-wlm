@@ -1,14 +1,3 @@
-package 'slurm-client' do
-  options '-y --force-yes' # forces YES for all prompts
-  action :install
-end
-
-package 'libslurm29' do
-  options '-y --force-yes' # forces YES for all prompts
-  action :install
-end
-
-package 'libslurmdb29' do
-  options '-y --force-yes' # forces YES for all prompts
-  action :install
+unless node['slurm-wlm']['packages']['manage'] == false
+  package node['slurm-wlm']['packages']['client']
 end
