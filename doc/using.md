@@ -37,13 +37,13 @@ Slurm configs come in attribute/value pairs separated by an equals sign, e.g.:
 
     ClusterName=planetexpress
 
-There are numerous configuration parameters available and these will change over time.  The definition of the templates will expose any subkeys of the attribute `node['slurm-wlm']['configs']['slurm']` into the namespace of the template.  Thus:
+There are numerous configuration parameters available and these will change over time.  The definition of the templates will expose any subkeys of the attribute `node['slurm-wlm']['configs']['slurm']` into the template in a hash named "config".  Thus:
 
 `node['slurm-wlm']['configs']['slurm']['ClusterName'] = 'planetexpress'`
 
-would make a varaible `ClusterName` with value `planetexpress` available to the `slurm.conf` template that can then be referenced in your template:
+would make a varaible `config['ClusterName']` with value `planetexpress` available to the `slurm.conf` template that can then be referenced in your template:
 
-`ClusterName = <%= @ClusterName %>`
+`ClusterName = <%= @config['ClusterName'] %>`
     
 > These configuration parameters are not checked to ensure that they will work within Slurm- incorrect inputs will not raise an error until one of the daemons is started.
 

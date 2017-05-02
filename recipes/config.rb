@@ -46,7 +46,7 @@ template "#{node['slurm-wlm']['files']['configdir']}/slurm.conf" do
   group 'root'
   mode '0644'
   variables(
-    node['slurm-wlm']['config']['slurm']
+    'config' => node['slurm-wlm']['config']['slurm']
   )
   action :create
 end
