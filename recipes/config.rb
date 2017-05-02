@@ -58,6 +58,5 @@ template "#{node['slurm-wlm']['files']['defaults_dir']}/"\
   owner 'root'
   group 'root'
   mode '0755'
-  variables(spank_plugins: nodes)
   action :create
 end
