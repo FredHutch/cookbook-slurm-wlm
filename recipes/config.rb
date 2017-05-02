@@ -38,3 +38,26 @@ directory node['slurm-wlm']['files']['configdir'] do
   recursive true
   action :create
 end
+
+template "#{node['slurm-wlm']['files']['configdir']}/slurm.conf" do
+  cookbook node['slurm-wlm']['templates']['cookbook']
+  source node['slurm-wlm']['templates']['slurm_conf']
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    node['slurm-wlm']['config']['slurm']
+  )
+  action :create
+end
+
+# default
+template "#{node['slurm-wlm']['files']['defaults_dir']}/"\
+  "#{node['slurm-wlm']['files']['service']}" do
+  source 'default.erb'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  variables(spank_plugins: nodes)
+  action :create
+end
