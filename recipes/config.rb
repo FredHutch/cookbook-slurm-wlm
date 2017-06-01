@@ -12,17 +12,16 @@ user 'slurm' do
 end
 
 # rundir/service
-directory "#{node['slurm-wlm']['files']['rundir']}/"\
-  "#{node['slurm-wlm']['files']['service']}" do
+directory node['slurm-wlm']['files']['rundir'] do
   owner node['slurm-wlm']['files']['daemon_user']
   group node['slurm-wlm']['files']['group']
   mode '0755'
   action :create
+  recursive true
 end
 
 # spooldir/service
-directory "#{node['slurm-wlm']['files']['spooldir']}/"\
-  "#{node['slurm-wlm']['files']['service']}" do
+directory node['slurm-wlm']['files']['spooldir'] do
   owner node['slurm-wlm']['files']['daemon_user']
   group node['slurm-wlm']['files']['group']
   mode '0755'
@@ -34,6 +33,15 @@ end
 directory node['slurm-wlm']['files']['configdir'] do
   owner 'root'
   group 'root'
+  mode '0755'
+  recursive true
+  action :create
+end
+
+# Logging directory
+directory node['slurm-wlm']['files']['logdir'] do
+  owner node['slurm-wlm']['files']['daemon_user']
+  group node['slurm-wlm']['files']['group']
   mode '0755'
   recursive true
   action :create

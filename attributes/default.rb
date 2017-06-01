@@ -50,14 +50,14 @@ default['slurm-wlm']['templates'] = {
 default['slurm-wlm']['files'] = {
   'configdir' => '/etc/slurm-llnl',
   'daemon_user' => 'slurm',
-  'rundir' => '/var/run',
-  'spooldir' => '/var/spool',
+  'rundir' => '/var/run/slurm-llnl',
+  'spooldir' => '/var/spool/slurm-llnl',
   'service' => 'slurm',
   'config' => "#{default['slurm-wlm']['files']['configdir']}/slurm.conf",
   'defaults' => '/etc/default/slurm-llnl',
   'defaults_dir' => '/etc/default',
   'group' => 'slurm',
-  'logdir' => '/var/log',
+  'logdir' => '/var/log/slurm-llnl',
   'plugstack_conf' => '',
   'spank_plugins' => ''
 }
