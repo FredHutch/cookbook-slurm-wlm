@@ -59,12 +59,15 @@ template "#{node['slurm-wlm']['files']['configdir']}/slurm.conf" do
   action :create
 end
 
-# default
+# init/systemd defaults file
 template "#{node['slurm-wlm']['files']['defaults_dir']}/"\
   "#{node['slurm-wlm']['files']['service']}" do
   source 'default.erb'
   owner 'root'
   group 'root'
   mode '0755'
+  variables(
+    'config' => "#{node['slurm-wlm']['files']['configdir']}/slurm.conf"
+  )
   action :create
 end
