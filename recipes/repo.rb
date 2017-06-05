@@ -10,6 +10,7 @@ unless node['slurm-wlm']['repository']['uri'].nil?
     components ['main']
     arch 'amd64'
     distribution 'trusty'
+    trusted true
   end
 
 end
