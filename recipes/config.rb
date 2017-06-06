@@ -3,14 +3,13 @@ raise 'Cluster Name is required and not set.' if \
 raise 'Control Machine is required and not set' if \
   node['slurm-wlm']['config']['ControlMachine'] == ''
 
-unless node['etc']['passwd']['slurm']
-  user 'slurm' do
-    comment 'slurm user'
-    home '/usr/slurm'
-    shell '/bin/bash'
-    password 'password'
-    action :create
-  end
+user 'slurm' do
+  comment 'slurm user'
+  home '/usr/slurm'
+  shell '/bin/bash'
+  password 'password'
+  action :create
+  not_if 'getent passwd slurm'
 end
 
 # rundir/service
