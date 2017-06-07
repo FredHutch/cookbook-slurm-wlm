@@ -62,34 +62,6 @@ default['slurm-wlm']['files'] = {
   'spank_plugins' => ''
 }
 
-default['slurm-wlm']['config']['slurm'] = {
-  'ClusterName' => 'chipmunks',
-  'ControlMachine' => 'alvin',
-  'NodeName' => 'alvin',
-  'PartitionName' => 'alvin Nodes=alvin'
-}
+default['slurm-wlm']['config']['slurm'] = { }
 
-default['slurm-wlm']['config']['slurmdbd'] = {
-  'AuthType' => 'auth/munge',
-  'AuthInfo' => '/var/run/munge/munge.socket.2',
-  'DbdHost' => 'gadget',
-  'DebugLevel' => 'verbose',
-  'StorageHost' => 'gadget',
-  'StorageLoc' => 'gizmo_acct_db',
-  'StorageType' => 'accounting_storage/mysql',
-  'StorageUser' => 'slurm',
-  'LogFile' => '/var/log/slurm-llnl/slurmdbd.log',
-  'PidFile' => '/var/run/slurm-llnl/slurmdbd.pid',
-  'SlurmUser' => 'slurm',
-  'ArchiveDir' => '/var/spool/slurm-llnl/events',
-  'ArchiveEvents' => 'yes',
-  'PurgeEventAfter' => '3',
-  'ArchiveJobs' => 'yes',
-  'PurgeJobAfter' => '3',
-  'ArchiveResvs' => 'yes',
-  'PurgeResvAfter' => '3',
-  'ArchiveSteps' => 'yes',
-  'PurgeStepAfter' => '3',
-  'ArchiveSuspend' => 'yes',
-  'PurgeSuspendAfter' => '3'
-}
+default['slurm-wlm']['config']['slurmdbd'] = { }
