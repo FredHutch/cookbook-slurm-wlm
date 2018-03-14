@@ -62,6 +62,5 @@ default['slurm-wlm']['files'] = {
   'spank_plugins' => ''
 }
 
-default['slurm-wlm']['config']['slurm'] = { }
-
-default['slurm-wlm']['config']['slurmdbd'] = { }
+default['slurm-wlm']['config']['slurm'] = {}
+default['slurm-wlm']['config']['slurmdbd'] = {}
