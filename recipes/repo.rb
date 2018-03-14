@@ -7,11 +7,11 @@
 unless node['slurm-wlm']['repository']['uri'].nil?
   apt_repository 'slurm-wlm' do
     uri node['slurm-wlm']['repository']['uri']
-    components ['main']
-    arch 'amd64'
-    distribution 'trusty'
-    trusted true
+    components node['slurm-wlm']['repository']['components']
+    arch node['slurm-wlm']['repository']['arch']
+    distribution node['slurm-wlm']['repository']['distribution']
+    key node['slurm-wlm']['repository']['key']
+    keyserver node['slurm-wlm']['repository']['keyserver']
   end
-
 end
 apt_update 'update apt'
