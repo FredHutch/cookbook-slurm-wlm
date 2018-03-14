@@ -19,7 +19,7 @@ platforms:
   - name: ubuntu-16.04
 
 suites:
-  - name: repotest
+  - name: client
     run_list:
       - recipe[slurm-wlm::default]
     verifier:
@@ -33,16 +33,8 @@ suites:
           "uri": "http://us.archive.ubuntu.com/ubuntu/"
           "components":
             - "main"
-          "distribution": "trusty"
           "key": "C0B21F32"
           "keyserver": "keyserver.ubuntu.org"
-  - name: client
-    run_list:
-      - recipe[slurm-wlm::default]
-    verifier:
-      inspec_tests:
-        - test/smoke/default
-    attributes:
   - name: fullstack
     # This tests controller and daemon on one so that
     # daemons can start properly
@@ -54,5 +46,14 @@ suites:
       inspec_tests:
         - test/smoke/default
     attributes:
+      "slurm-wlm":
+        "packages":
+          "manage": "False"
+        "repository":
+          "uri": "http://us.archive.ubuntu.com/ubuntu/"
+          "components":
+            - "main"
+          "key": "C0B21F32"
+          "keyserver": "keyserver.ubuntu.org"
     driver:
       vm_hostname: alvin
