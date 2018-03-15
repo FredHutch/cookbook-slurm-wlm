@@ -1,5 +1,7 @@
 unless node['slurm-wlm']['packages']['manage'] == false
-  package node['slurm-wlm']['packages']['pam']
+  package node['slurm-wlm']['packages']['pam'] do
+    version node['slurm-wlm']['packages']['version']
+  end
 end
 
 # this uses the resource from the line cookbook from supermarket

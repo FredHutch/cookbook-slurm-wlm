@@ -8,6 +8,11 @@
 #
 # Set 'manage' to false if this cookbook won't manage installation
 default['slurm-wlm']['packages']['manage'] = true
+
+# Set this to an appropriate string to pin slurm packages
+# to a version
+default['slurm-wlm']['packages']['version'] = nil
+
 case node['lsb']['codename']
 when 'trusty'
   default['slurm-wlm']['services'] = {

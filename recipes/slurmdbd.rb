@@ -1,5 +1,7 @@
 unless node['slurm-wlm']['packages']['manage'] == false
-  package node['slurm-wlm']['packages']['slurmdbd']
+  package node['slurm-wlm']['packages']['slurmdbd'] do
+    version node['slurm-wlm']['packages']['version']
+  end
 end
 
 if node['slurm-wlm']['config']['ArchiveEvents'] == 'yes'
