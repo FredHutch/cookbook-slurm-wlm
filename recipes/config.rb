@@ -61,8 +61,7 @@ template "#{node['slurm-wlm']['files']['configdir']}/slurm.conf" do
 end
 
 # init/systemd defaults file
-template "#{node['slurm-wlm']['files']['defaults_dir']}/"\
-  "#{node['slurm-wlm']['files']['service']}" do
+template "/etc/default/#{node['slurm-wlm']['files']['service']}" do
   source 'default.erb'
   owner 'root'
   group 'root'

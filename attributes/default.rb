@@ -61,7 +61,6 @@ default['slurm-wlm']['files'] = {
   'service' => 'slurm',
   'config' => "#{default['slurm-wlm']['files']['configdir']}/slurm.conf",
   'defaults' => '/etc/default/slurm-llnl',
-  'defaults_dir' => '/etc/default',
   'group' => 'slurm',
   'logdir' => '/var/log/slurm-llnl',
   'plugstack_conf' => '',
