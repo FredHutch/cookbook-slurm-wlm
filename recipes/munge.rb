@@ -11,7 +11,8 @@ directory '/etc/munge' do
 end
 
 cookbook_file '/etc/munge/munge.key' do
-  source 'munge.key'
+  cookbook node['slurm-wlm']['templates']['cookbook']
+  source node['slurm-wlm']['templates']['munge_key']
   owner 'munge'
   group 'root'
   mode '0400'

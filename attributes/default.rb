@@ -49,7 +49,8 @@ end
 default['slurm-wlm']['templates'] = {
   'cookbook' => 'slurm-wlm',
   'slurm_conf' => 'slurm.conf.erb',
-  'slurmdbd_conf' => 'slurmdbd.conf.erb'
+  'slurmdbd_conf' => 'slurmdbd.conf.erb',
+  'munge_key' => 'munge.key'
 }
 
 default['slurm-wlm']['files'] = {
