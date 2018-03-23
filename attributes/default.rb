@@ -25,6 +25,7 @@ when 'trusty'
     'slurmd' => 'slurm-llnl',
     'slurmctld' => 'slurm-llnl',
     'slurmdbd' => 'slurm-llnl-slurmdbd',
+    'plugins' => 'slurm-llnl-basic-plugins',
     'pam' => 'libpam-slurm',
     'munge' => 'munge'
   }
@@ -39,6 +40,7 @@ when 'xenial'
     'slurmd' => 'slurmd',
     'slurmctld' => 'slurmctld',
     'slurmdbd' => 'slurmdbd',
+    'plugins' => 'slurm-wlm-basic-plugins',
     'pam' => 'libpam-slurm',
     'munge' => 'munge'
   }
