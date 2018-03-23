@@ -5,8 +5,11 @@
 # Copyright:: 2017, The Authors, All Rights Reserved.
 
 unless node['slurm-wlm']['repository']['uri'].nil?
+
   if node['slurm-wlm']['repository']['distribution'].nil?
     distribution = node['lsb']['codename']
+  else
+    distribution = node['slurm-wlm']['repository']['distribution']
   end
 
   apt_repository 'slurm-wlm' do

@@ -31,6 +31,7 @@ suites:
           "manage": "False"
         "repository":
           "uri": "http://us.archive.ubuntu.com/ubuntu/"
+          "distribution": "untrusty"
           "components":
             - "main"
           "key": "C0B21F32"
