@@ -36,6 +36,13 @@ suites:
             - "main"
           "key": "C0B21F32"
           "keyserver": "keyserver.ubuntu.org"
+  - name: munge
+    run_list:
+      - recipe[slurm-wlm::munge]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:
   - name: fullstack
     # This tests controller and daemon on one so that
     # daemons can start properly

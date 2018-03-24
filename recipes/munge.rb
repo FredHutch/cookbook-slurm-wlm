@@ -10,15 +10,6 @@ directory '/etc/munge' do
   action :create
 end
 
-cookbook_file '/etc/munge/munge.key' do
-  cookbook node['slurm-wlm']['templates']['cookbook']
-  source node['slurm-wlm']['templates']['munge_key']
-  owner 'munge'
-  group 'root'
-  mode '0400'
-  action :create
-end
-
 cookbook_file '/etc/default/munge' do
   source 'munge'
   owner 'root'
@@ -51,6 +42,16 @@ directory '/var/run/munge' do
   action :create
 end
 
+cookbook_file '/etc/munge/munge.key' do
+  cookbook node['slurm-wlm']['templates']['cookbook']
+  source node['slurm-wlm']['templates']['munge_key']
+  owner 'munge'
+  group 'root'
+  mode '0400'
+  action :create
+  notifies :start, 'service[munge]', :immediate
+end
+
 service 'munge' do
-  action [:enable, :start]
+  action [:nothing]
 end
