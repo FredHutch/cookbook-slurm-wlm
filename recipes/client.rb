@@ -4,6 +4,9 @@ unless node['slurm-wlm']['packages']['manage'] == false
     node['slurm-wlm']['packages']['client'],
     node['slurm-wlm']['packages']['plugins']
   ] do
-    version node['slurm-wlm']['packages']['version']
+    version [
+      node['slurm-wlm']['packages']['version']
+      node['slurm-wlm']['packages']['version']
+    ]
   end
 end
