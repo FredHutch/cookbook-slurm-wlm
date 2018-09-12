@@ -29,7 +29,7 @@ Attributes
     <td><code>slurm-wlm</code></td>
   </tr>
   <tr>
-    <td><code>node['slurm-wlm']['templates']['wrapper']</code></td>
+    <td><code>node['slurm-wlm']['templates']['cookbook']</code></td>
     <td>The name of a cookbook wrapping this one which contains templates necessary for configuring Slurm components.  If this is not included then the templates in this cookbook are used </td>
     <td><code>slurm-wlm</code></td>
   </tr>
