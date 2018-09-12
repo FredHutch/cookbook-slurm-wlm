@@ -14,7 +14,7 @@ template node['slurm-wlm']['config']['slurm']['SuspendProgram'] do
   source node['slurm-wlm']['templates']['SuspendProgram']
   owner 'root'
   group 'root'
-  mode '0644'
+  mode '0755'
   variables(
     'config' => node['slurm-wlm']['config']['slurm']
   )
@@ -26,7 +26,7 @@ template node['slurm-wlm']['config']['slurm']['ResumeProgram'] do
   source node['slurm-wlm']['templates']['ResumeProgram']
   owner 'root'
   group 'root'
-  mode '0644'
+  mode '0755'
   variables(
     'config' => node['slurm-wlm']['config']['slurm']
   )
