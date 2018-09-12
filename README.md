@@ -55,6 +55,13 @@ Recipes
 
 *No recipes defined*
 
+Development
+-----------
+
+Before running test-kitchen generate the munge key:
+
+    dd if=/dev/urandom of=files/default/munge.key bs=1024 count=2
+
 License and Author
 ------------------
 
