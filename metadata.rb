@@ -4,7 +4,7 @@ maintainer_email 'scicomp@fredhutch.org'
 license 'Apache 2.0'
 description 'Installs and configures SchedMD Slurm Workload Manager'
 version '0.3.1'
-chef_version '~> 12'
+chef_version '~> 14.8.12'
 
 issues_url 'https://github.com/FredHutch/cookbook-slurm-wlm/issues'
 source_url 'https://github.com/FredHutch/cookbook-slurm-wlm'
