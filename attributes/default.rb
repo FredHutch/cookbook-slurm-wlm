@@ -29,7 +29,7 @@ when 'trusty'
     'pam' => 'libpam-slurm',
     'munge' => 'munge'
   }
-when 'xenial'
+when 'xenial', 'bionic'
   default['slurm-wlm']['services'] = {
     'slurmd' => 'slurmd',
     'slurmctld' => 'slurmctld',
