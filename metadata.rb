@@ -11,3 +11,4 @@ source_url 'https://github.com/FredHutch/cookbook-slurm-wlm'
 
 supports 'ubuntu', '~> 14.04'
 supports 'ubuntu', '~> 16.04'
+supports 'ubuntu', '~> 18.04'
