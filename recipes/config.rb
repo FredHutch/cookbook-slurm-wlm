@@ -4,11 +4,16 @@ raise 'Control Machine is required and not set' if \
   node['slurm-wlm']['config']['ControlMachine'] == ''
 
 user 'slurm' do
-  comment 'slurm user'
-  home '/usr/slurm'
-  shell '/bin/bash'
-  password 'password'
+  comment node['slurm-wlm']['user']['gecos']
+  home node['slurm-wlm']['user']['home']
+  shell node['slurm-wlm']['user']['shell']
+  uid node['slurm-wlm']['user']['uid']
+  #gid node['slurm-wlm']['user']['gid']
+  password '!'
   action :create
+  # Add this user only when 'manage_user' is true
+  only_if { node['slurm-wlm']['user']['manage_user'] }
+  # And then, don't add if it exists in passwd
   not_if 'getent passwd slurm'
 end
 

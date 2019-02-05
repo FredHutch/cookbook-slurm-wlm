@@ -69,5 +69,14 @@ default['slurm-wlm']['files'] = {
   'spank_plugins' => ''
 }
 
+default['slurm-wlm']['user'] = {
+  'manage_user' => true,
+  'uid' => '6281',
+  'gid' => '6281',
+  'home' => '/var/spool/slurm-llnl',
+  'gecos' => 'Slurm User',
+  'shell' => '/bin/false'
+}
+
 default['slurm-wlm']['config']['slurm'] = {}
 default['slurm-wlm']['config']['slurmdbd'] = {}
