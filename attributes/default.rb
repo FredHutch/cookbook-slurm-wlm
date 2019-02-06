@@ -69,14 +69,24 @@ default['slurm-wlm']['files'] = {
   'spank_plugins' => ''
 }
 
+# NOTE: the stock Ubuntu/Debian Slurm packages create the slurm user and group
+# on installation.
 default['slurm-wlm']['user'] = {
-  'manage_user' => true,
-  'uid' => '6281',
-  'gid' => '6281',
-  'home' => '/var/spool/slurm-llnl',
-  'gecos' => 'Slurm User',
-  'shell' => '/bin/false'
+  'manage_user' => false
 }
+
+# This is an example for managing the slurm user with packages that don't
+# create the user or if you need the UID to be something other than provided
+# by the packages or other source:
+#
+# default['slurm-wlm']['user'] = {
+#   'manage_user' => true,
+#   'uid' => 62810,
+#   'gid' => 62810,
+#   'home' => '/var/spool/slurm-llnl',
+#   'gecos' => 'Slurm User',
+#   'shell' => '/bin/false'
+# }
 
 default['slurm-wlm']['config']['slurm'] = {}
 default['slurm-wlm']['config']['slurmdbd'] = {}
