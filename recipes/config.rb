@@ -5,10 +5,8 @@ raise 'Control Machine is required and not set' if \
 
 group 'slurm' do
   gid node['slurm-wlm']['user']['gid']
-  # Add this user only when 'manage_user' is true
   only_if { node['slurm-wlm']['user']['manage_user'] }
-  # And then, don't add if it exists in passwd
-  not_if 'getent group slurm'
+  action :create
 end
 
 user 'slurm' do
@@ -19,10 +17,7 @@ user 'slurm' do
   gid node['slurm-wlm']['user']['gid']
   password '!'
   action :create
-  # Add this user only when 'manage_user' is true
   only_if { node['slurm-wlm']['user']['manage_user'] }
-  # And then, don't add if it exists in passwd
-  not_if 'getent passwd slurm'
 end
 
 # rundir/service
