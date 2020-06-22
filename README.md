@@ -67,7 +67,7 @@ License and Author
 
 Author:: Scientific Computing - Fred Hutchinson Cancer Research Ctr. (<scicomp@fredhutch.org>)
 
-Copyright:: 2016,2020 Scientific Computing - Fred Hutchinson Cancer Research Ctr.
+Copyright:: 2016 Scientific Computing - Fred Hutchinson Cancer Research Ctr.
 
 License:: Apache 2.0
 
