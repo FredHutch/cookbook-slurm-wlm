@@ -6,11 +6,11 @@ unless node['slurm-wlm']['packages']['manage'] == false
   package 'slurm-client-packages' do
     package_name [
       node['slurm-wlm']['packages']['client'],
-      node['slurm-wlm']['packages']['plugins']
+      node['slurm-wlm']['packages']['plugins'],
     ]
     version [
       node['slurm-wlm']['packages']['version'],
-      node['slurm-wlm']['packages']['version']
+      node['slurm-wlm']['packages']['version'],
     ]
   end
 end

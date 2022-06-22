@@ -1,7 +1,7 @@
 name 'slurm-wlm'
 maintainer 'Scientific Computing - Fred Hutchinson Cancer Research Ctr.'
 maintainer_email 'scicomp@fredhutch.org'
-license 'Apache 2.0'
+license 'Apache-2.0'
 description 'Installs and configures SchedMD Slurm Workload Manager'
 version '1.0.0'
 chef_version '~> 17'

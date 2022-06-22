@@ -18,7 +18,7 @@ when 'trusty'
   default['slurm-wlm']['services'] = {
     'slurmd' => 'slurm-llnl',
     'slurmctld' => 'slurm-llnl',
-    'slurmdbd' => 'slurmdbd'
+    'slurmdbd' => 'slurmdbd',
   }
   default['slurm-wlm']['packages'] = {
     'client' => 'slurm-llnl',
@@ -27,13 +27,13 @@ when 'trusty'
     'slurmdbd' => 'slurm-llnl-slurmdbd',
     'plugins' => 'slurm-llnl-basic-plugins',
     'pam' => 'libpam-slurm',
-    'munge' => 'munge'
+    'munge' => 'munge',
   }
 when 'xenial', 'bionic'
   default['slurm-wlm']['services'] = {
     'slurmd' => 'slurmd',
     'slurmctld' => 'slurmctld',
-    'slurmdbd' => 'slurmdbd'
+    'slurmdbd' => 'slurmdbd',
   }
   default['slurm-wlm']['packages'] = {
     'client' => 'slurm-client',
@@ -42,7 +42,7 @@ when 'xenial', 'bionic'
     'slurmdbd' => 'slurmdbd',
     'plugins' => 'slurm-wlm-basic-plugins',
     'pam' => 'libpam-slurm',
-    'munge' => 'munge'
+    'munge' => 'munge',
   }
 else
   raise "unsupported platform #{node['lsb']['codename']}"
@@ -52,7 +52,7 @@ default['slurm-wlm']['templates'] = {
   'cookbook' => 'slurm-wlm',
   'slurm_conf' => 'slurm.conf.erb',
   'slurmdbd_conf' => 'slurmdbd.conf.erb',
-  'munge_key' => 'munge.key'
+  'munge_key' => 'munge.key',
 }
 
 default['slurm-wlm']['files'] = {
@@ -66,7 +66,7 @@ default['slurm-wlm']['files'] = {
   'group' => 'slurm',
   'logdir' => '/var/log/slurm-llnl',
   'plugstack_conf' => '',
-  'spank_plugins' => ''
+  'spank_plugins' => '',
 }
 
 default['slurm-wlm']['config']['slurm'] = {}

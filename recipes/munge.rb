@@ -49,7 +49,7 @@ cookbook_file '/etc/munge/munge.key' do
   group 'root'
   mode '0400'
   action :create
-  notifies :start, 'service[munge]', :immediate
+  notifies :start, 'service[munge]', :immediately
 end
 
 service 'munge' do

@@ -5,9 +5,9 @@ default['slurm-wlm']['config']['slurm'] = {
   'ResumeProgram' => '/var/lib/slurm-llnl/resume',
   'ResumeRate' => '10',
   'ResumeTimeout' => '300',
-  'PrivateData' => 'cloud'
+  'PrivateData' => 'cloud',
 }
 default['slurm-wlm']['templates'] = {
   'SuspendProgram' => 'suspend.erb',
-  'ResumeProgram' => 'resume.erb'
+  'ResumeProgram' => 'resume.erb',
 }

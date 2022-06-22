@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: cookbook-slurm-wlm
+# Cookbook:: cookbook-slurm-wlm
 # Spec:: default
 #
-# Copyright (c) 2016 The Authors, All Rights Reserved.
+# Copyright:: (c) 2016 The Authors, All Rights Reserved.
 
 require 'spec_helper'
 
