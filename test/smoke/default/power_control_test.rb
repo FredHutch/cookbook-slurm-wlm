@@ -1,5 +1,3 @@
-# # encoding: utf-8
-
 # Inspec test for recipe cookbook-slurm-wlm::power_control
 
 # The Inspec reference, with examples and extensive documentation, can be
